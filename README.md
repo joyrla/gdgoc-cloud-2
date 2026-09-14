@@ -77,10 +77,10 @@ docker push <아이디>/mycard:1.0
 옆 사람 카드:
 
 ```sh
-docker run -d -p 8090:4321 --name friend <옆사람아이디>/mycard:1.0
+docker run --platform linux/amd64 -d -p 8090:4321 --name friend <옆사람아이디>/mycard:1.0
 ```
 
-http://localhost:8090. 코드도 설치도 없이 실행.
+http://localhost:8090. 코드도 설치도 없이 실행. `--platform`은 amd64로 만든 이미지를 Mac에서 받을 때 필요합니다.
 
 ## 5. 수정, 다시 build (선택)
 
@@ -112,5 +112,5 @@ docker rm -f card mycard friend
 - `Cannot connect to the Docker daemon`: Docker Desktop 실행
 - `denied: requested access to the resource is denied`: 이미지 이름이 `<아이디>/`로 시작하는지, `docker login` 했는지
 - `port is already allocated`: `docker ps`, `docker rm -f <이름>`
-- `exec format error`: `--platform linux/amd64` 없이 build함. 다시 build, push
+- `no matching manifest for linux/arm64`: Mac에서 amd64 이미지를 받을 때. `docker run --platform linux/amd64 ...`
 - 사진이 안 바뀜: `public/photo.jpg` 이름과 위치
