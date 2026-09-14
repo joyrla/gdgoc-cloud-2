@@ -1,0 +1,179 @@
+---
+// 멤버 카드. src/profile.json 과 public/photo.jpg 를 수정합니다.
+import fs from "node:fs";
+import profile from "../profile.json";
+
+const hasPhoto = fs.existsSync(new URL("../../public/photo.jpg", import.meta.url));
+const photo = hasPhoto ? "/photo.jpg" : "/placeholder.svg";
+
+// 사진 틀
+const frame =
+  "M40,0 H770 a40,40 0 0 1 40,40 V617 a40,40 0 0 1 -40,40 H450 a40,40 0 0 0 -40,40 " +
+  "V774 a40,40 0 0 1 -40,40 H40 a40,40 0 0 1 -40,-40 V40 a40,40 0 0 1 40,-40 Z";
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{profile.name} — GDGoC Yonsei Cloud</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&family=Google+Sans+Code:wght@400;600&family=Noto+Sans+KR:wght@400;700&display=swap"
+    />
+  </head>
+  <body>
+    <main class="card">
+      <figure class="photo">
+        <svg viewBox="0 0 810 814" role="img" aria-label={`${profile.name} 사진`}>
+          <defs>
+            <clipPath id="frame"><path d={frame} /></clipPath>
+          </defs>
+          <rect width="810" height="814" fill="#fff" clip-path="url(#frame)" />
+          <image href={photo} width="810" height="814" preserveAspectRatio="xMidYMid meet" clip-path="url(#frame)" />
+          <path d={frame} fill="none" stroke="#1d1d1d" stroke-width="7" />
+        </svg>
+      </figure>
+
+      <section class="info">
+        <h1 class="name">{profile.name}</h1>
+        <p class="role">{profile.role}</p>
+        <h2 class="heading">클라우드 파트에서 얻고/해보고 싶은 것</h2>
+        <ul class="goals">
+          {profile.goals.map((goal) => <li>{goal}</li>)}
+        </ul>
+      </section>
+    </main>
+
+    <footer class="meta">GDGoC Yonsei Cloud 2회차 실습</footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #efefef;
+    --ink: #1d1d1d;
+    --muted: #6f6f6f;
+    --pill: #c8f5c4;
+    --pill-dark: #2fb85a;
+    --line: #1d1d1d;
+    --sans: "Google Sans", "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
+    --code: "Google Sans Code", "SF Mono", Menlo, monospace;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding: 48px 24px;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+  }
+
+  .card {
+    width: min(1100px, 100%);
+    display: grid;
+    grid-template-columns: minmax(260px, 440px) 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .photo {
+    margin: 0;
+  }
+
+  .photo svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .name,
+  .role {
+    margin: 0;
+    border: 3px solid var(--line);
+    border-radius: 18px;
+    text-align: center;
+  }
+
+  .name {
+    width: 100%;
+    max-width: 480px;
+    padding: 14px 0;
+    background: var(--pill);
+    font-size: 36px;
+    font-weight: 700;
+    text-wrap: balance;
+  }
+
+  .role {
+    padding: 10px 44px;
+    background: var(--pill-dark);
+    color: #fff;
+    font-family: var(--code);
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .heading {
+    margin: 14px 0 6px;
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .goals {
+    margin: 0;
+    padding-left: 40px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .goals li {
+    margin: 12px 0;
+  }
+
+  .meta {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 720px) {
+    .card {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .name {
+      font-size: 28px;
+    }
+
+    .goals {
+      font-size: 19px;
+    }
+  }
+</style>
