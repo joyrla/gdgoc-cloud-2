@@ -3,7 +3,10 @@
 GDGoC Yonsei Cloud 2회차 실습. 자기 소개 카드를 Docker 이미지로 만들어 실행하고 Docker Hub에 올립니다.
 
 준비물: Docker Desktop, Docker Hub 계정, Git. Node.js는 없어도 됩니다.
-`<아이디>`는 자기 Docker Hub 아이디입니다.
+
+- `<아이디>`는 자기 Docker Hub 아이디로 바꿔서 입력합니다.
+- 2단계부터는 모든 명령을 `mycard` 폴더 안에서 실행합니다.
+- Windows는 PowerShell을 씁니다. cmd와 Git Bash는 경로 표기가 달라 일부 명령이 안 됩니다.
 
 명령은 공식 [CLI cheat sheet](https://docs.docker.com/get-started/docker_cheatsheet.pdf)를 옆에 두고 진행합니다.
 
@@ -59,7 +62,7 @@ CMD ["npm", "run", "dev", "--", "--host"]
 `src/profile.json`에 이름, 역할, 목표를 적고 `public/photo.jpg`를 넣습니다.
 
 ```sh
-docker build -t <아이디>/mycard:1.0 .
+docker build -t <아이디>/mycard:1.0 .     # 끝의 . 까지 입력
 docker run -d -p 8080:4321 --name mycard <아이디>/mycard:1.0
 ```
 
@@ -74,7 +77,7 @@ docker history <아이디>/mycard:1.0
 ## 4. push, pull
 
 ```sh
-docker login
+docker login                # 브라우저가 열리면 거기서 로그인
 docker push <아이디>/mycard:1.0
 ```
 
