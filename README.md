@@ -114,3 +114,21 @@ docker rm -f card mycard friend
 - `port is already allocated`: `docker ps`, `docker rm -f <이름>`
 - `no matching manifest for linux/arm64`: Mac에서 amd64 이미지를 받을 때. `docker run --platform linux/amd64 ...`
 - 사진이 안 바뀜: `public/photo.jpg` 이름과 위치
+
+## 처음부터 다시
+
+꼬였을 때, 가벼운 것부터.
+
+```sh
+docker rm -f $(docker ps -aq)      # 컨테이너 전부 삭제. 이미지는 남음
+```
+
+```sh
+cd .. && rm -rf mycard && git clone https://github.com/joyrla/gdgoc-cloud-2.git mycard && cd mycard
+```
+
+```sh
+docker system prune -af            # 이미지까지 전부 삭제. 1단계부터 다시
+```
+
+명령이 아무 반응이 없으면 Docker Desktop을 종료하고 다시 엽니다. Docker Hub는 되돌릴 것이 없습니다. 같은 태그로 다시 push하면 덮어씁니다.
