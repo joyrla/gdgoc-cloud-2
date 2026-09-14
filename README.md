@@ -99,28 +99,10 @@ docker rm -f mycard
 docker run -d -p 8080:4321 --name mycard <아이디>/mycard:1.1
 ```
 
-## 6. 마운트 (선택)
-
-build 없이 고치는 방법. 노트북의 `src` 폴더를 컨테이너의 `/app/src`에 연결합니다.
-
-```sh
-docker rm -f mycard
-docker run -d -p 8080:4321 --name dev -v "$PWD/src":/app/src <아이디>/mycard:1.1
-```
-
-`src/profile.json`을 고치고 저장하면 새로고침만으로 반영됩니다.
-
-```sh
-docker exec dev cat /app/src/profile.json
-docker rm -f dev
-```
-
-서버에는 내 폴더가 없으므로 서버에서는 쓰지 않습니다. 개발은 마운트, 배포는 이미지.
-
 ## 정리
 
 ```sh
-docker rm -f card mycard friend dev
+docker rm -f card mycard friend
 ```
 
 이미지와 Docker Hub 저장소는 다음 시간에 씁니다.
